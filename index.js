@@ -34,7 +34,8 @@ app.post('/shorten', auth, async (req, res) => {
     user: req.user.userId
   });
 
-  res.json({ shortUrl: `http://localhost:3000/${shortId}` });
+  // res.json({ shortUrl: `http://localhost:3000/${shortId}` }); 
+  res.json({ shortUrl: `${process.env.BASE_URL}/${shortId}` });
 });
 
 app.get('/my-urls', auth, async (req, res) => {
@@ -95,5 +96,5 @@ app.delete('/delete/:id', auth, async (req, res) => {
   res.json({ msg: 'Deleted' });
 });
 
-// Start Server
-app.listen(3000, () => console.log('Server running at http://localhost:3000'));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
